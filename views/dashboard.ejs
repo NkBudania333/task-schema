@@ -1,0 +1,13 @@
+<h1>hii <%= name %></h1>
+
+<form action="/tasks/<%= name %>" method="POST">
+    <input class="newtask form-control" id="newtask" name="newtask" />
+    <button class="btn">Add</button>
+    
+</form>
+
+<div class="list">
+    <% for (var i =1; i <value.length;  i++ ) { %>
+        <p> <%= value[i] %></p> <a href="/edit/<%= value[i].replace(/%20/g, ' ') %>">EDIT</a>&nbsp; &nbsp;<a href="/delete/<%= value[i] %>">DELETE</a>
+    <% } %>
+</div>
