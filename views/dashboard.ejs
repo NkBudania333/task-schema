@@ -6,8 +6,3 @@
     
 </form>
 
-<div class="list">
-    <% for (var i =1; i <value.length;  i++ ) { %>
-        <p> <%= value[i] %></p> <a href="/edit/<%= value[i].replace(/%20/g, ' ') %>">EDIT</a>&nbsp; &nbsp;<a href="/delete/<%= value[i] %>">DELETE</a>
-    <% } %>
-</div>
