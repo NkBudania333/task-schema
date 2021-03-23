@@ -8,9 +8,16 @@ const flash = require("connect-flash");
 router.get("/", (req, res) => res.render("login"));
 
 router.get("/dashboard", ensureAuthenticated, (req, res) => {
-    res.render("dashboard", {
-        name: req.user.name,
-    });
+    User.find({}, "tasks").exec((err, value) => {
+        if(err) {
+            return next(err);
+        } else {
+            res.render("dashboard", {
+                name: req.user.name,
+                value: value[0].tasks,
+            })
+        }
+    })
 });
 
 router.get("/tasks/:name", (req, res) => {
