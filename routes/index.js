@@ -26,6 +26,24 @@ router.get("/tasks/:name", (req, res) => {
     })
 })
 
+router.get("/delete/:name/:tasks", (req, res) => {
+    User.findOneAndUpdate(
+        { name: req.params.name },
+        { $pull: { tasks: req.params.tasks }},
+        { new: true },
+        function(err, value) {
+            res.render("dashboard", {
+                name: req.params.name,
+                value: value.tasks,
+            })
+        }
+    )
+})
+
+router.get("/edit/:name/:tasks", (req, res) => {
+    res.send("edit");
+})
+
 router.post("/tasks/:name", (req, res, next) => {
     // console.log(req.body.toString());
     const obj = JSON.parse(JSON.stringify(req.body));
