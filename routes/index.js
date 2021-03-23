@@ -41,7 +41,26 @@ router.get("/delete/:name/:tasks", (req, res) => {
 })
 
 router.get("/edit/:name/:tasks", (req, res) => {
-    res.send("edit");
+    res.render("editform.ejs", {
+        name: req.params.name,
+        tasks: req.params.tasks,
+    })
+})
+
+router.post("/edittask/:name/:tasks", (req, res) => {
+    console.log(req.body.newtask);
+    console.log(req.params.tasks)
+    User.findOneAndUpdate(
+        { name: req.params.name, tasks: req.params.tasks },
+        { $set: { tasks: req.body.newtask }},
+        { new: true },
+        function(err, value) {
+            res.render("dashboard", {
+                name: req.params.name,
+                value: value.tasks,
+            })
+        }
+    )
 })
 
 router.post("/tasks/:name", (req, res, next) => {
