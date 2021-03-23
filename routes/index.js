@@ -8,9 +8,16 @@ const flash = require("connect-flash");
 router.get("/", (req, res) => res.render("login"));
 
 router.get("/dashboard", ensureAuthenticated, (req, res) => {
-    res.render("dashboard", {
-        name: req.user.name,
-    });
+    User.find({}, "tasks").exec((err, value) => {
+        if(err) {
+            return next(err);
+        } else {
+            res.render("dashboard", {
+                name: req.user.name,
+                value: value[0].tasks,
+            })
+        }
+    })
 });
 
 router.get("/tasks/:name", (req, res) => {
@@ -23,12 +30,6 @@ router.post("/tasks/:name", (req, res, next) => {
     // console.log(req.body.toString());
     const obj = JSON.parse(JSON.stringify(req.body));
 
-    if(obj.newtask == ""){
-        res.render("dashboard", {
-            name: req.params.name,
-        })
-    }
-    else{
         User.findOneAndUpdate(
             {name: req.params.name},
             { $addToSet: { tasks: obj.newtask }},
@@ -38,11 +39,9 @@ router.post("/tasks/:name", (req, res, next) => {
                     name: req.params.name,
                     value: value.tasks,
                 })
-                console.log(value.tasks);.03
-                265
+                console.log(value.tasks);
             }
         )
-    }
 })
 
 module.exports = router;
