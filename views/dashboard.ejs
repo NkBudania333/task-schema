@@ -1,14 +1,53 @@
-<h1>hii <%= name %></h1>
+<style>
+    body{
+        background-color: black;
+    }
+    button{
+        border-radius: 5px;
+        color: black;
+        background-color: white;
+    }
+    button:hover{
+        cursor: pointer;
+        text-decoration: underline;
+    }
+    div{
+        color: white;
+    }
+    #edit:hover{
+        background-color: #56c3f3;
+    }
+    #delete:hover{
+        background-color: #f93838;
+    }
+    .btn:hover{
+        background-color: #5ab55a;
+    }
+    .list{
+        text-align: inherit;
+    }
+    .data{
+        margin-left: 17px;
+    }
+    .logout:hover{
+        background-color:rgb(25, 241, 241);
+    }
+</style>
 
+<h1 style="text-align: center;">Hii <%= name %></h1>
+<form action="/logout" method="POST"><button class="logout" style="float: right;margin-right: 17px;">Logout</button></form>
 <form action="/tasks/<%= name %>" method="POST">
-    <input class="newtask form-control" id="newtask" name="newtask" />
-    <button class="btn">Add</button>
-    
+    <input class="newtask form-control" id="newtask" name="newtask" autocomplete="off" style="width: 50%;margin-left: auto;margin-right: auto;"/>
+    <button class="btn" style="margin-top: 14px; margin-left: 45%;">Add Task</button>
 </form>
 
 <br>
 <div class="list">
     <% for (var i =0; i <value.length;  i++ ) { %>
-        <p> <%= value[i] %></p> <a href="/edit/<%= name %>/<%= value[i]%>">EDIT</a>&nbsp;&nbsp;<a href="/delete/<%= name %>/<%= value[i] %>">DELETE</a>
+        <hr style="background-color: grey;">
+        <p> <span class="data"> <%= value[i] %> </span> <a href="/edit/<%= name %>/<%= value[i]%>" style="text-decoration: none; float: right; margin-right: 17px;" > <button id="edit">Edit</button> </a><a href="/delete/<%= name %>/<%= value[i] %>" style="text-decoration: none; float: right; margin-right: 12px;"><button id="delete">Delete</button> </a></p>
+        <hr style="background-color: grey;">
     <% } %>
 </div>
+
+

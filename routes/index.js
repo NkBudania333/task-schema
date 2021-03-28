@@ -81,4 +81,10 @@ router.post("/tasks/:name", (req, res, next) => {
         )
 })
 
+router.post("/logout", (req, res) => {
+    req.logOut();
+    req.flash("success_msg", "You are logged out");
+    res.redirect("/users/login");
+  });
+
 module.exports = router;
